@@ -5,6 +5,6 @@ const deposit = 500;
 const mission = "car";
 const period = 3;
 
-alert("Hello world");
+alert("Hello");
 
 console.log("Hello world");
