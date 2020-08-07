@@ -1,7 +1,7 @@
 const money = 500;
 const income = 10000;
-const addExpenses = 5000;
-const deposit = 100;
+const addExpenses = 6000;
+const deposit = 500;
 const mission = "car";
 const period = 3;
 
