@@ -157,13 +157,11 @@ console.log(appData.calcSavedMoney());
 //   monthExpenses[i] =
 //     monthExpenses[i][0].toUpperCase() + monthExpenses[i].slice(1).toLowerCase();
 // }
-appData.addExpenses.forEach(function (addExpenses, i, arr) {
-  arr[i] = addExpenses[0].toUpperCase() + addExpenses.slice(1).toLowerCase();
-  console.log(appData.addExpenses);
-});
-
-// appData.addExpenses = appData.addExpenses
-//   .split(/\s+ /)
-//   .map((word) => word[0].toUpperCase() + word.substring(1))
-//   .join("");
-// console.log(appData.addExpenses);
+// appData.addExpenses.forEach(function (addExpenses, i, arr) {
+//   arr[i] = addExpenses[0].toUpperCase() + addExpenses.slice(1).toLowerCase();
+//   console.log(appData.addExpenses);
+// });
+appData.addExpenses = String(appData.addExpenses).split(/\s+/)
+  .map((word) => word[0].toUpperCase() + word.substring(1))
+  .join(" ");
+console.log(appData.addExpenses);
