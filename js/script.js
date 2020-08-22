@@ -1,6 +1,6 @@
 "use strict";
 const book = document.querySelectorAll(".book");
-const titleChapter = document.querySelectorAll("h2");
+const titleChapter = document.querySelectorAll("a");
 const adv = document.querySelector(".adv");
 const body = document.querySelector("body");
 const collection = document.querySelectorAll("ul");
