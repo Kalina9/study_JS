@@ -6,21 +6,15 @@ const todoControl = document.querySelector(".todo-control"),
   headerButton = document.querySelector(".header-button"),
   todoCompleted = document.querySelector(".todo-completed");
 
-let todoData = [
-  // {
-  //     value: 'Сварить кофе',
-  //     completed: false
-  // },
-  // {
-  //     value: 'Помыть посуду',
-  //     completed: true
-  // },
-];
-
+let todoData = [];
+// LocalStorage сохраняется после перезагрузки
+if (localStorage.getItem("todo")) {
+  todoData = JSON.parse(localStorage.getItem("todo"));
+}
 const render = function () {
   todoList.textContent = "";
   todoCompleted.textContent = "";
-  // После добавления дела input очищается
+
   headerInput.value = "";
   todoData.forEach(function (item) {
     const li = document.createElement("li");
@@ -43,41 +37,31 @@ const render = function () {
       item.completed = !item.completed;
       render();
     });
-    //Удаляю дело при клике на корзину
+// Удаляю дела
+    const todoRemove = li.querySelector(".todo-remove");
+    todoRemove.addEventListener("click", function () {
+      let index = todoData.indexOf(item);
+      todoData.splice(index, 1);
 
-    // const btnTodoRemove = li.querySelector('.todo-remove');
-    // btnTodoRemove.addEventListener('click', function () {
-    //     li.remove();
-    //     const newTodo = {
-    //         value: headerInput.value,
-    //     };
-    //     todoData.shift(newTodo)
-
-    //     render();
-    // })
+      li.remove();
+    });
   });
 };
-// Проверяю на пустое значение
-headerInput.addEventListener("input", function () {
-  if (headerInput.value !== "") {
-    headerButton.disabled = false;
-  } else {
-    headerButton.disabled = true;
-  }
-});
 
-render();
 todoControl.addEventListener("submit", function (event) {
   event.preventDefault();
-  const newTodo = {
-    value: headerInput.value,
-    completed: false,
-  };
-  todoData.push(newTodo);
-
-  render();
+// Проверяю на пустое значение и добавляю в массив
+  if (headerInput.value.trim()) {
+    const newTodo = {
+      value: headerInput.value,
+      completed: false,
+    };
+    todoData.push(newTodo);
+    headerInput.value = "";
+    render();
+    //  сохраняю дела в LocalStorage
+    localStorage.setItem("todo", JSON.stringify(todoData));
+  }
 });
-
-//Пустой инпут не добавляю в список дел
 
 render();
