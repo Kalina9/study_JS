@@ -48,7 +48,7 @@ const render = function () {
     todoRemove.addEventListener("click", function () {
       let index = todoData.indexOf(item);
       todoData.splice(index, 1);
-
+localStorage.setItem("todo", JSON.stringify(todoData));
       li.remove();
     });
   });
