@@ -32,6 +32,12 @@ const render = function () {
     } else {
       todoList.append(li);
     }
+     // Сохраняю в локал выполненые дела и не выполненые
+    if (item.completed) {
+      localStorage.setItem("todo", JSON.stringify(todoData, item.completed));
+    } else {
+      localStorage.setItem("todo", JSON.stringify(todoData));
+    }
     const btnTodoComplete = li.querySelector(".todo-complete");
     btnTodoComplete.addEventListener("click", function () {
       item.completed = !item.completed;
@@ -60,7 +66,7 @@ todoControl.addEventListener("submit", function (event) {
     headerInput.value = "";
     render();
     //  сохраняю дела в LocalStorage
-    localStorage.setItem("todo", JSON.stringify(todoData));
+//     localStorage.setItem("todo", JSON.stringify(todoData));
   }
 });
 
