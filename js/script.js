@@ -82,8 +82,9 @@ let appData = {
   },
 
   showResult: function () {
+    const _this = this;
     budgetMonthValue.value = this.budgetMonth;
-    budgetDayValue.value = Math.ceil(appData.budgetDay);
+    budgetDayValue.value = Math.ceil(this.budgetDay);
     expensesMonthValue.value = this.expensesMonth;
     additionalExpensesValue.value = this.addExpenses.join(", ");
     additionalIncomeValue.value = this.addIncome.join(", ");
@@ -92,7 +93,7 @@ let appData = {
     // Накопления за период меняются при изменении ползунка
     // periodSelect.addEventListener("input", () => this.showResult);
     periodSelect.addEventListener("change", function () {
-      incomePeriodValue.value = appData.calcPeriod();
+      incomePeriodValue.value = _this.calcPeriod();
     });
   },
 
@@ -260,9 +261,9 @@ const startVar = appData.start.bind(appData);
 // Вешаю событие клик на кнопки
 
 start.addEventListener("click", appData.start.bind(appData));
-expensesPlus.addEventListener("click", appData.addExpensesBlock);
-incomePlus.addEventListener("click", appData.addIncomeBlock);
-salaryAmount.addEventListener("keyup", appData.check);
+expensesPlus.addEventListener("click", this.addExpensesBlock);
+incomePlus.addEventListener("click", this.addIncomeBlock);
+salaryAmount.addEventListener("keyup", this.check);
 cancel.addEventListener("click", appData.reset.bind(appData));
 // Меняю значение в зависимости от положения range
 periodSelect.addEventListener("change", function () {
