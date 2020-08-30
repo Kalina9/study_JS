@@ -223,14 +223,20 @@ AppData.prototype.reset = function () {
     resultInput.forEach(function (elem) {
         elem.value = "";
     });
-    for (let i = 1; i < incomeItem.length; i++) {
-        incomeItem[i].parentNode.removeChild(incomeItem[i]);
-        incomePlus.style.display = "block";
+    // Удаление блоков с доходами
+  incomeItem = document.querySelectorAll(".income-items");
+  incomeItem.forEach((item, index) => {
+    if (index >= 1) {
+      item.remove();
     }
-    for (let i = 1; i < expensesItems.length; i++) {
-        expensesItems[i].parentNode.removeChild(expensesItems[i]);
-        expensesPlus.style.display = "block";
+  });
+    // Удаление блоков с расходами
+  expensesItems = document.querySelectorAll(".expenses-items");
+  expensesItems.forEach((item, index) => {
+    if (index >= 1) {
+      item.remove();
     }
+  });
 
     this.income = {};
     this.addIncome = [];
