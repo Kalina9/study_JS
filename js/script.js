@@ -245,32 +245,63 @@ class AppData {
     expensesPlus.removeAttribute("disabled");
     checkBox.checked = false;
   }
-  getInfoDeposit() {
-    if (this.deposit) {
-      this.percentDeposit = depositPercent.value;
-      this.moneyDeposit = depositAmount.value;
-    }
-  }
+
   changePercent() {
     const valueSelect = this.value;
     if (valueSelect === "other") {
-      // Домашнеее
       depositPercent.style.display = "inline-block";
+      depositPercent.disabled = false;
       depositPercent.value = "";
     } else {
-      depositPercent.value = valueSelect;
-      depositPercent.style.display = "none";
+      depositPercent.style.display = "";
+      depositPercent.disabled = true;
+      depositPercent.value = valueSelect * 100;
     }
   }
-  // checkPercent() {
-  //   if (
-  //     depositPercent.value < 0 ||
-  //     depositPercent.value > 100 ||
-  //     isNaN(depositPercent.value)
-  //   ) {
-  //     alert("Введите корректное значение в поле проценты");
-  //   }
-  // }
+
+  depositHandler() {
+    if (depositCheck.checked) {
+      depositBank.style.display = "inline-block";
+      depositAmount.style.display = "inline-block";
+      this.deposit = "true";
+      start.disabled = true;
+      depositBank.addEventListener("input", this.changePercent);
+      depositPercent.addEventListener(
+        "input",
+        this.validatorPercent.bind(this)
+      );
+      depositAmount.addEventListener("input", this.validatorPercent.bind(this));
+      depositBank.addEventListener("input", this.validatorPercent.bind(this));
+    } else {
+      depositBank.style.display = "";
+      depositAmount.style.display = "";
+      depositBank.value = 0;
+      depositAmount.value = "";
+      this.deposit = "false";
+      this.disabledBtn();
+      depositBank.removeEventListener("input", this.validatorPercent);
+      depositPercent.removeEventListener(
+        "input",
+        this.validatorPercent.bind(this)
+      );
+      depositAmount.removeEventListener(
+        "input",
+        this.validatorPercent.bind(this)
+      );
+      depositBank.removeEventListener(
+        "input",
+        this.validatorPercent.bind(this)
+      );
+    }
+  }
+
+  getInfoDeposit() {
+    if (this.deposit) {
+      this.persentDeposit = +depositPercent.value;
+      this.moneyDeposit = +depositAmount.value;
+    }
+  }
+
   disabledBtn() {
     if (depositCheck.checked) {
       if (depositPercent.value !== "" && depositAmount.value !== "") {
@@ -282,6 +313,7 @@ class AppData {
       start.disabled = !salaryAmount.value.trim();
     }
   }
+
   validatorPercent() {
     if (!(depositPercent.value > 0 && depositPercent.value < 100)) {
       if (depositBank.value !== "0" && depositPercent.value !== "") {
@@ -292,21 +324,6 @@ class AppData {
     this.disabledBtn();
   }
 
-  depositHandler() {
-    if (depositCheck.checked) {
-      depositBank.style.display = "inline-block";
-      depositAmount.style.display = "inline-block";
-      this.deposit = true;
-      depositBank.addEventListener("change", this.changePercent);
-    } else {
-      depositBank.style.display = "inline-block";
-      depositAmount.style.display = "inline-block";
-      depositBank.value = "";
-      depositAmount.value = "";
-      this.deposit = false;
-      depositBank.removeEventListener("change", this.changePercent);
-    }
-  }
   // Навешивание событий
   eventListeners() {
     // Вешаю событие клик на кнопки
@@ -323,10 +340,6 @@ class AppData {
     });
 
     // Кнопка не работает пока инпут пустой
-    start.disabled = true;
-    salaryAmount.addEventListener("input", () => {
-      start.disabled = salaryAmount.value === "";
-    });
     start.disabled = true;
     salaryAmount.addEventListener("input", () => {
       start.disabled = salaryAmount.value === "";
