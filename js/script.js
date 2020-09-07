@@ -138,13 +138,15 @@ window.addEventListener("DOMContentLoaded", function () {
     let popupContent = document.querySelector(".popup-content"),
       popupBtn = document.querySelectorAll(".popup-btn");
 
-    popupBtn.forEach((elem) => {
-      elem.addEventListener("click", () => {
-        animate(function (timePassed) {
-          popupContent.style.top = timePassed / 2 + "px";
-        }, 300);
+    if (document.documentElement.clientWidth > 768) {
+      popupBtn.forEach((elem) => {
+        elem.addEventListener("click", () => {
+          animate(function (timePassed) {
+            popupContent.style.top = timePassed / 2 + "px";
+          }, 300);
+        });
       });
-    });
+    }
   };
 
   makeAnimate();
