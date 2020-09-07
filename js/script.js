@@ -55,16 +55,9 @@ window.addEventListener("DOMContentLoaded", function () {
   const toggleMenu = () => {
     const btnMenu = document.querySelector(".menu"),
       menu = document.querySelector("menu");
-    // closeBtn = document.querySelector(".close-btn"),
-    // menuItems = menu.querySelectorAll("ul>li");
     const handlerMenu = () => {
       //   toggle - убирает или добавляет класс
       menu.classList.toggle("active-menu");
-      // if (!menu.style.transform || menu.style.transform === 'translate(-100%)') {
-      //     menu.style.transform = 'translate(0)'
-      // } else {
-      //     menu.style.transform = 'translate(-100%)'
-      // }
     };
     //
     menu.addEventListener("click", (event) => {
@@ -74,7 +67,6 @@ window.addEventListener("DOMContentLoaded", function () {
       } else if (target.tagName == "A") {
         handlerMenu();
       }
-
       console.log(target);
     });
 
@@ -88,10 +80,6 @@ window.addEventListener("DOMContentLoaded", function () {
 
       console.log(target);
     });
-    // closeBtn.addEventListener("click", handlerMenu);
-    //  menuItems.forEach((elem) => {
-    //    elem.addEventListener("click", handlerMenu);
-    //  });
   };
   toggleMenu();
   // popup
@@ -121,32 +109,37 @@ window.addEventListener("DOMContentLoaded", function () {
     });
   };
   togglePopUp();
-  // Анимация
 
+  // Анимация
   let makeAnimate = () => {
-    let animate = (draw, duration) => {
-      let start = performance.now();
-      requestAnimationFrame(function animate(time) {
-        let timePassed = time - start;
-        if (timePassed > duration) timePassed = duration;
-        draw(timePassed);
-        if (timePassed < duration) {
-          requestAnimationFrame(animate);
-        }
-      });
-    };
     let popupContent = document.querySelector(".popup-content"),
       popupBtn = document.querySelectorAll(".popup-btn");
 
+    let count = 0,
+      interval;
+    const animate = () => {
+      if (window.innerWidth > 768) {
+        interval = requestAnimationFrame(animate);
+        count += 5;
+        if (count < 175) {
+          popupContent.style.top = count + "px";
+        } else {
+          cancelAnimationFrame(interval);
+          count = 0;
+        }
+      } else {
+        cancelAnimationFrame(interval);
+      }
+    };
+
     popupBtn.forEach((elem) => {
       elem.addEventListener("click", () => {
-        animate(function (timePassed) {
-          popupContent.style.top = timePassed / 2 + "px";
-        }, 300);
+        animate();
       });
     });
+    window.addEventListener("load", togglePopUp.animate);
+    window.addEventListener("resize", togglePopUp.animate);
   };
-
   makeAnimate();
 
   // табы
