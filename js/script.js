@@ -181,17 +181,16 @@ window.addEventListener("DOMContentLoaded", function () {
     //Номер слайда
     let currentSlide = 0,
       interval,
-        dot;
-// точки для слайдера в html
-    let wrapDots = document.querySelector(".portfolio-dots");
+        dots;
+     // добавляю класс dot в html
+   let wrapDots = document.querySelector(".portfolio-dots");
     for (let i = 0; i < slide.length; i++) {
-      dot = document.createElement("li");
-      dot.classList.add("dot");
-      wrapDots.append(dot);
+      dots = document.createElement("li");
+      dots.classList.add("dot");
+      wrapDots.append(dots);
       document.querySelectorAll(".dot")[0].classList.add("dot-active");
-  
-      document.querySelectorAll(".dot");
     }
+    let dot = document.querySelectorAll(".dot");
 
     //   С помощью prevSlide и nextSlide происходит переключение
     const prevSlide = (elem, index, strClass) => {
