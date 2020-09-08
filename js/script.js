@@ -180,16 +180,16 @@ window.addEventListener("DOMContentLoaded", function () {
       slider = document.querySelector(".portfolio-content");
     //Номер слайда
     let currentSlide = 0,
-      interval;
-    let dot;
-
+      interval,
+        dot;
+// точки для слайдера в html
     let wrapDots = document.querySelector(".portfolio-dots");
     for (let i = 0; i < slide.length; i++) {
       dot = document.createElement("li");
       dot.classList.add("dot");
       wrapDots.append(dot);
       document.querySelectorAll(".dot")[0].classList.add("dot-active");
-      // dot[i].className = dot[i].className.replace("dot-active");
+  
       document.querySelectorAll(".dot");
     }
 
