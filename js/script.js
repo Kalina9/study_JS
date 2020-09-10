@@ -58,12 +58,14 @@ class Todo {
         return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
     }
+    // найти элемент по ключу и удалить из new Map
     deleteItem() {
-        // найти элемент по ключу и удалить из new Map
+        
 
     }
+    // перебрать элементы todoData и найти ключ элемента на который мы нажали и поменять значение  completed
     completedItem() {
-        // перебрать элементы todoData и найти ключ элемента на который мы нажали и поменять значение  completed
+        
 
     }
 
