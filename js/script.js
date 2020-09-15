@@ -49,7 +49,7 @@ window.addEventListener("DOMContentLoaded", function () {
     updateClock();
   }
   //countTimer();
-  countTimer(`7 september 2020`);
+  countTimer(`20 september 2020`);
 
   // Меню
   const toggleMenu = () => {
@@ -181,17 +181,16 @@ window.addEventListener("DOMContentLoaded", function () {
     //Номер слайда
     let currentSlide = 0,
       interval;
-    let dot;
-
+    let dots;
+    // добавляю класс dot в html
     let wrapDots = document.querySelector(".portfolio-dots");
     for (let i = 0; i < slide.length; i++) {
-      dot = document.createElement("li");
-      dot.classList.add("dot");
-      wrapDots.append(dot);
+      dots = document.createElement("li");
+      dots.classList.add("dot");
+      wrapDots.append(dots);
       document.querySelectorAll(".dot")[0].classList.add("dot-active");
-      // dot[i].className = dot[i].className.replace("dot-active");
-      document.querySelectorAll(".dot");
     }
+    let dot = document.querySelectorAll(".dot");
 
     //   С помощью prevSlide и nextSlide происходит переключение
     const prevSlide = (elem, index, strClass) => {
@@ -279,4 +278,56 @@ window.addEventListener("DOMContentLoaded", function () {
     startSlide(2000);
   };
   slider();
+  const changeImg = () => {
+    const command = document.querySelector('.command'),
+      commandSrc = document.querySelectorAll('.command__photo');
+    // Сохраняю ссылки на фотки
+    commandSrc.forEach((item) => {
+      item.dataset.oldImg = item.getAttribute('src');
+    });
+    // если наводим мышку картинка меняется
+    command.addEventListener('mouseover', (event) => {
+      let target = event.target;
+      if (!target.matches('.command__photo')) {
+        return;
+      } else {
+        target.src = target.dataset.img;
+      }
+    });
+    // если уводим мышку картинка меняется на исходную
+    command.addEventListener('mouseout', (event) => {
+      let target = event.target;
+      if (!target.matches('.command__photo')) {
+        return;
+      } else {
+        target.src = target.dataset.oldImg;
+      }
+    });
+  }
+  changeImg();
+  // Смена картинок через деструктуризацию
+  // const command = document.getElementById('command');
+
+  //     const toggleImg = () => {
+  //       const target = event.target;
+
+  //       if (!target.matches('img')) return;
+
+  //       [target.dataset.img, target.src] = [target.src, target.dataset.img];
+  //     };
+
+  //     command.addEventListener('mouseover', toggleImg);
+  //     command.addEventListener('mouseout', toggleImg);
+  // в инпут вводятся только цифры
+  const inputNumbers = () => {
+    let calcSCD = document.querySelectorAll('input.calc-item');
+    calcSCD.forEach((item) => {
+      item.addEventListener('input', () => {
+        item.value = item.value.replace(/\D/, '');
+      })
+
+    })
+  }
+  inputNumbers()
+
 });
