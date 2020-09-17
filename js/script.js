@@ -98,14 +98,15 @@ window.addEventListener("DOMContentLoaded", function () {
 
       if (target.classList.contains("popup-close")) {
         popup.style.display = "none";
-      } else {
-        target = target.classList.contains("popup-content");
-        if (!target) {
-          popup.style.display = "none";
-        }
+      } else if (!target) {
+        popup.style.display = "none";
+      } else if ((target = target.classList.contains("popup"))) {
+        popup.style.display = "none";
       }
+      console.log(target);
     });
   };
+
   togglePopUp();
 
   // Анимация
@@ -387,10 +388,9 @@ window.addEventListener("DOMContentLoaded", function () {
 
   // ///////////////////send-ajax-form
 
-  
   const sendForm = (id, color) => {
     const errorMessage = "Что то пошла не так...",
-      //  loadMessage = "Загрузка...",
+      loadMessage = "Загрузка...",
       successMessage = "Спасибо! Мы скоро с Вами свяжемся";
 
     const form = document.getElementById(`${id}`);
@@ -426,6 +426,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
       formData.forEach((val, key) => {
         body[key] = val;
+        statusMessage.textContent = loadMessage;
       });
 
       postData(body)
@@ -433,7 +434,7 @@ window.addEventListener("DOMContentLoaded", function () {
           statusMessage.textContent = successMessage;
           setTimeout(() => {
             statusMessage.textContent = "";
-          }, 3000);
+          }, 2000);
         })
         .catch((error) => {
           statusMessage.textContent = errorMessage;
@@ -467,5 +468,5 @@ window.addEventListener("DOMContentLoaded", function () {
   };
   sendForm("form1");
   sendForm("form2");
-  sendForm("form3");
+  sendForm("form3", "white");
 });
