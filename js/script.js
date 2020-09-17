@@ -99,13 +99,11 @@ window.addEventListener("DOMContentLoaded", function () {
       if (target.classList.contains("popup-close")) {
         popup.style.display = "none";
       } else {
-        target = target.contains("popup-content");
+        target = target.classList.contains("popup-content");
         if (!target) {
           popup.style.display = "none";
         }
       }
-
-      console.log(target);
     });
   };
   togglePopUp();
@@ -389,88 +387,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
   // ///////////////////send-ajax-form
 
-  // const sendForm = () => {
-  //   const errorMessage = "Что-то пошло не так...",
-  //     successMessage = "Спасибо! Мы скоро с вами свяжемся";
-
-  //   const allForm = document.querySelectorAll("form");
-  //   allForm.forEach((form) => {
-  //     const statusMessage = document.createElement("div");
-  //     statusMessage.style.cssText = "font-size: 2rem;";
-  //     statusMessage.style.color = "#fff";
-
-  //     const formPhone = form.querySelector(".form-phone");
-  //     formPhone.addEventListener("input", () => {
-  //       formPhone.value = formPhone.value.replace(/[^0-9+]/, "");
-  //     });
-
-  //     const formName = form.querySelector('input[name="user_name"]');
-  //     formName.addEventListener("input", () => {
-  //       formName.value = formName.value.replace(/[^ а-яё]/gi, "");
-  //     });
-
-  //     const mess = document.querySelector(".mess");
-  //     mess.addEventListener("input", () => {
-  //       mess.value = mess.value.replace(/[^ а-яё]/gi, "");
-  //     });
-  //     form.addEventListener("submit", (e) => {
-  //       e.preventDefault();
-  //       form.appendChild(statusMessage);
-  //       statusMessage.textContent = "";
-  //       let animation = `<div class="preloader todelete">
-  //           <div class="preloader__row todelete">
-  //             <div class="preloader__item todelete"></div>
-  //             <div class="preloader__item todelete"></div>
-  //           </div>
-  //         </div>`;
-
-  //       form.insertAdjacentHTML("beforeend", animation);
-  //       const formData = new FormData(form);
-  //       let body = {};
-  //       formData.forEach((value, key) => {
-  //         body[key] = value;
-  //       });
-
-  //       const success = (request) => {
-  //         const todelete = Array.from(form.querySelectorAll(".todelete"));
-  //         todelete.forEach((item) => {
-  //           item.remove();
-  //         });
-  //         if (request.status !== 200) {
-  //           throw new Error("status network not 200");
-  //         }
-  //         statusMessage.textContent = successMessage;
-  //         const inputForm = form.querySelectorAll("input");
-  //         inputForm.forEach((elem) => {
-  //           elem.value = "";
-  //         });
-
-  //         const deleteStatusMessage = () => {
-  //           statusMessage.remove();
-  //         };
-  //         setTimeout(deleteStatusMessage, 3000);
-  //       };
-  //       const error = () => {
-  //         statusMessage.textContent = errorMessage;
-  //         console.error();
-  //       };
-
-  //       postData(body).then(success).catch(error);
-  //     });
-
-  //     const postData = (body) => {
-  //       return fetch("./server.php", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(body),
-  //       });
-  //     };
-  //   });
-  // };
-  // sendForm();
-
+  
   const sendForm = (id, color) => {
     const errorMessage = "Что то пошла не так...",
       //  loadMessage = "Загрузка...",
