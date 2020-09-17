@@ -99,7 +99,7 @@ window.addEventListener("DOMContentLoaded", function () {
       if (target.classList.contains("popup-close")) {
         popup.style.display = "none";
       } else {
-        target = target.contains(".popup-content");
+        target = target.contains("popup-content");
         if (!target) {
           popup.style.display = "none";
         }
@@ -279,31 +279,31 @@ window.addEventListener("DOMContentLoaded", function () {
   };
   slider();
   const changeImg = () => {
-    const command = document.querySelector('.command'),
-      commandSrc = document.querySelectorAll('.command__photo');
+    const command = document.querySelector(".command"),
+      commandSrc = document.querySelectorAll(".command__photo");
     // Сохраняю ссылки на фотки
     commandSrc.forEach((item) => {
-      item.dataset.oldImg = item.getAttribute('src');
+      item.dataset.oldImg = item.getAttribute("src");
     });
     // если наводим мышку картинка меняется
-    command.addEventListener('mouseover', (event) => {
+    command.addEventListener("mouseover", (event) => {
       let target = event.target;
-      if (!target.matches('.command__photo')) {
+      if (!target.matches(".command__photo")) {
         return;
       } else {
         target.src = target.dataset.img;
       }
     });
     // если уводим мышку картинка меняется на исходную
-    command.addEventListener('mouseout', (event) => {
+    command.addEventListener("mouseout", (event) => {
       let target = event.target;
-      if (!target.matches('.command__photo')) {
+      if (!target.matches(".command__photo")) {
         return;
       } else {
         target.src = target.dataset.oldImg;
       }
     });
-  }
+  };
   changeImg();
   // Смена картинок через деструктуризацию
   // const command = document.getElementById('command');
@@ -320,27 +320,24 @@ window.addEventListener("DOMContentLoaded", function () {
   //     command.addEventListener('mouseout', toggleImg);
   // в инпут вводятся только цифры
   const inputNumbers = () => {
-    let calcSCD = document.querySelectorAll('input.calc-item');
+    let calcSCD = document.querySelectorAll("input.calc-item");
     calcSCD.forEach((item) => {
-      item.addEventListener('input', () => {
-        item.value = item.value.replace(/\D/, '');
-      })
-
-    })
-  }
-  inputNumbers()
-
+      item.addEventListener("input", () => {
+        item.value = item.value.replace(/\D/, "");
+      });
+    });
+  };
+  inputNumbers();
 
   const calc = (price = 100) => {
-    const calcBlock = document.querySelector('.calc-block'),
-      calcType = document.querySelector('.calc-type'),
-      calsSquare = document.querySelector('.calc-square'),
-      calcDay = document.querySelector('.calc-day'),
-      calcCount = document.querySelector('.calc-count'),
-      totalValue = document.getElementById('total');
+    const calcBlock = document.querySelector(".calc-block"),
+      calcType = document.querySelector(".calc-type"),
+      calsSquare = document.querySelector(".calc-square"),
+      calcDay = document.querySelector(".calc-day"),
+      calcCount = document.querySelector(".calc-count"),
+      totalValue = document.getElementById("total");
 
     const countSum = () => {
-
       let total = 0;
       let countValue = 1;
       let dayValue = 1;
@@ -353,9 +350,9 @@ window.addEventListener("DOMContentLoaded", function () {
       }
       // Стоимость взависимости от срочности
       if (calcDay.value && calcDay.value < 5) {
-        dayValue *= 2
+        dayValue *= 2;
       } else if (calcDay.value && calcDay.value < 10) {
-        dayValue *= 1.5
+        dayValue *= 1.5;
       }
       // Считаем сумму
       if (typeValue && squareValue) {
@@ -366,113 +363,192 @@ window.addEventListener("DOMContentLoaded", function () {
       totalValue.textContent = total;
 
       //let currentNumber = $('#dynamic-number').text();
+    };
 
-
-    }
-
-    calcBlock.addEventListener('change', (event) => {
+    calcBlock.addEventListener("change", (event) => {
       let target = event.target;
 
-      if (target.matches('.calc-type') || target.matches('.calc-square') ||
-        target.matches('.calc-day') || target.matches('.calc-count')) {
+      if (
+        target.matches(".calc-type") ||
+        target.matches(".calc-square") ||
+        target.matches(".calc-day") ||
+        target.matches(".calc-count")
+      ) {
         countSum();
       }
-      // if(target === calcType || target === calsSquare 
+      // if(target === calcType || target === calsSquare
       //   || target=== calcDay || target === calcDay){
       //   console.log(1)
       // }
       // if(target.matches('select') || target.matches('input')){
       //   console.log(1)
       // }
-    })
-  }
-  calc(100)
+    });
+  };
+  calc(100);
 
   // ///////////////////send-ajax-form
 
-  const sendForm = () => {
-    const errorMessage = 'Что-то пошло не так...',
-      successMessage = 'Спасибо! Мы скоро с вами свяжемся';
+  // const sendForm = () => {
+  //   const errorMessage = "Что-то пошло не так...",
+  //     successMessage = "Спасибо! Мы скоро с вами свяжемся";
 
-    const allForm = document.querySelectorAll('form');
-    allForm.forEach((form) => {
-      const statusMessage = document.createElement('div');
-      statusMessage.style.cssText = 'font-size: 2rem;';
-      statusMessage.style.color = '#fff';
+  //   const allForm = document.querySelectorAll("form");
+  //   allForm.forEach((form) => {
+  //     const statusMessage = document.createElement("div");
+  //     statusMessage.style.cssText = "font-size: 2rem;";
+  //     statusMessage.style.color = "#fff";
 
+  //     const formPhone = form.querySelector(".form-phone");
+  //     formPhone.addEventListener("input", () => {
+  //       formPhone.value = formPhone.value.replace(/[^0-9+]/, "");
+  //     });
 
-      const formPhone = form.querySelector('.form-phone');
-      formPhone.addEventListener('input', () => {
-        formPhone.value = formPhone.value.replace(/[^0-9+]/, '');
-      });
+  //     const formName = form.querySelector('input[name="user_name"]');
+  //     formName.addEventListener("input", () => {
+  //       formName.value = formName.value.replace(/[^ а-яё]/gi, "");
+  //     });
 
+  //     const mess = document.querySelector(".mess");
+  //     mess.addEventListener("input", () => {
+  //       mess.value = mess.value.replace(/[^ а-яё]/gi, "");
+  //     });
+  //     form.addEventListener("submit", (e) => {
+  //       e.preventDefault();
+  //       form.appendChild(statusMessage);
+  //       statusMessage.textContent = "";
+  //       let animation = `<div class="preloader todelete">
+  //           <div class="preloader__row todelete">
+  //             <div class="preloader__item todelete"></div>
+  //             <div class="preloader__item todelete"></div>
+  //           </div>
+  //         </div>`;
 
-      const formName = form.querySelector('input[name="user_name"]');
-      formName.addEventListener('input', () => {
-        formName.value = formName.value.replace(/[^ а-яё]/ig, '');
-      });
+  //       form.insertAdjacentHTML("beforeend", animation);
+  //       const formData = new FormData(form);
+  //       let body = {};
+  //       formData.forEach((value, key) => {
+  //         body[key] = value;
+  //       });
 
-      const mess = document.querySelector('.mess');
-      mess.addEventListener('input', () => {
-        mess.value = mess.value.replace(/[^ а-яё]/ig, '');
-      });
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        form.appendChild(statusMessage);
-        statusMessage.textContent = '';
-        let animation = `<div class="preloader todelete">
-            <div class="preloader__row todelete">
-              <div class="preloader__item todelete"></div>
-              <div class="preloader__item todelete"></div>
-            </div>
-          </div>`;
+  //       const success = (request) => {
+  //         const todelete = Array.from(form.querySelectorAll(".todelete"));
+  //         todelete.forEach((item) => {
+  //           item.remove();
+  //         });
+  //         if (request.status !== 200) {
+  //           throw new Error("status network not 200");
+  //         }
+  //         statusMessage.textContent = successMessage;
+  //         const inputForm = form.querySelectorAll("input");
+  //         inputForm.forEach((elem) => {
+  //           elem.value = "";
+  //         });
 
-        form.insertAdjacentHTML('beforeend', animation);
-        const formData = new FormData(form);
-        let body = {};
-        formData.forEach((value, key) => {
-          body[key] = value;
-        });
-        const success = (request) => {
-          const todelete = Array.from(form.querySelectorAll('.todelete'));
-          todelete.forEach((item) => {
-            item.remove();
-          });
-          if (request.status !== 200) {
-            throw new Error('status network not 200');
-          }
-          statusMessage.textContent = successMessage;
-          const inputForm = form.querySelectorAll('input');
-          inputForm.forEach(elem => {
-            elem.value = '';
-          });
+  //         const deleteStatusMessage = () => {
+  //           statusMessage.remove();
+  //         };
+  //         setTimeout(deleteStatusMessage, 3000);
+  //       };
+  //       const error = () => {
+  //         statusMessage.textContent = errorMessage;
+  //         console.error();
+  //       };
 
-          const deleteStatusMessage = () => {
-            statusMessage.remove();
-          };
-          setTimeout(deleteStatusMessage, 3000);
-        };
-        const error = () => {
-          statusMessage.textContent = errorMessage;
-          console.error();
-        };
-        postData(body)
-          .then(success)
-          .catch(error);
-      });
+  //       postData(body).then(success).catch(error);
+  //     });
 
-      const postData = (body) => {
-        return fetch('./server.php', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(body)
-        });
-      };
+  //     const postData = (body) => {
+  //       return fetch("./server.php", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(body),
+  //       });
+  //     };
+  //   });
+  // };
+  // sendForm();
+
+  const sendForm = (id, color) => {
+    const errorMessage = "Что то пошла не так...",
+      //  loadMessage = "Загрузка...",
+      successMessage = "Спасибо! Мы скоро с Вами свяжемся";
+
+    const form = document.getElementById(`${id}`);
+    let userName = document.getElementsByName("user_name");
+    let userEmail = document.getElementsByName("user_email");
+    let userPhone = document.getElementsByName("user_phone");
+    let userMessage = document.getElementsByName("user_message");
+
+    const formPhone = form.querySelector(".form-phone");
+    formPhone.addEventListener("input", () => {
+      formPhone.value = formPhone.value.replace(/[^0-9+]/, "");
     });
 
-  };
-  sendForm();
+    const formName = form.querySelector('input[name="user_name"]');
+    formName.addEventListener("input", () => {
+      formName.value = formName.value.replace(/[^ а-яё]/gi, "");
+    });
 
+    const mess = document.querySelector(".mess");
+    mess.addEventListener("input", () => {
+      mess.value = mess.value.replace(/[^ а-яё]/gi, "");
+    });
+
+    const statusMessage = document.createElement("div");
+    statusMessage.style.cssText = `font-size: 2rem; color: ${color}`;
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      form.appendChild(statusMessage);
+
+      const formData = new FormData(form);
+      let body = {};
+
+      formData.forEach((val, key) => {
+        body[key] = val;
+      });
+
+      postData(body)
+        .then(() => {
+          statusMessage.textContent = successMessage;
+          setTimeout(() => {
+            statusMessage.textContent = "";
+          }, 3000);
+        })
+        .catch((error) => {
+          statusMessage.textContent = errorMessage;
+          console.error(error);
+        });
+    });
+
+    const postData = (body) => {
+      return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
+        request.addEventListener("readystatechange", () => {
+          if (request.readyState !== 4) {
+            return;
+          }
+          if (request.status === 200) {
+            userName.forEach((item) => (item.value = ""));
+            userEmail.forEach((item) => (item.value = ""));
+            userPhone.forEach((item) => (item.value = ""));
+            userMessage.forEach((item) => (item.value = ""));
+            resolve();
+          } else {
+            reject(request.status);
+          }
+        });
+
+        request.open("POST", "./server.php");
+        request.setRequestHeader("Content-Type", "application/json");
+        request.send(JSON.stringify(body));
+      });
+    };
+  };
+  sendForm("form1");
+  sendForm("form2");
+  sendForm("form3");
 });
