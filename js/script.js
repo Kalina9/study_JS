@@ -98,16 +98,15 @@ window.addEventListener("DOMContentLoaded", function () {
 
       if (target.classList.contains("popup-close")) {
         popup.style.display = "none";
-      } else {
-        target = target.contains("popup-content");
-        if (!target) {
-          popup.style.display = "none";
-        }
+      } else if (!target) {
+        popup.style.display = "none";
+      } else if ((target = target.classList.contains("popup"))) {
+        popup.style.display = "none";
       }
-
       console.log(target);
     });
   };
+
   togglePopUp();
 
   // Анимация
@@ -360,7 +359,7 @@ window.addEventListener("DOMContentLoaded", function () {
       }
 
       // Записываем итоговую сумму
-      totalValue.textContent = total;
+      totalValue.textContent = Math.ceil(total);
 
       //let currentNumber = $('#dynamic-number').text();
     };
@@ -389,91 +388,9 @@ window.addEventListener("DOMContentLoaded", function () {
 
   // ///////////////////send-ajax-form
 
-  // const sendForm = () => {
-  //   const errorMessage = "Что-то пошло не так...",
-  //     successMessage = "Спасибо! Мы скоро с вами свяжемся";
-
-  //   const allForm = document.querySelectorAll("form");
-  //   allForm.forEach((form) => {
-  //     const statusMessage = document.createElement("div");
-  //     statusMessage.style.cssText = "font-size: 2rem;";
-  //     statusMessage.style.color = "#fff";
-
-  //     const formPhone = form.querySelector(".form-phone");
-  //     formPhone.addEventListener("input", () => {
-  //       formPhone.value = formPhone.value.replace(/[^0-9+]/, "");
-  //     });
-
-  //     const formName = form.querySelector('input[name="user_name"]');
-  //     formName.addEventListener("input", () => {
-  //       formName.value = formName.value.replace(/[^ а-яё]/gi, "");
-  //     });
-
-  //     const mess = document.querySelector(".mess");
-  //     mess.addEventListener("input", () => {
-  //       mess.value = mess.value.replace(/[^ а-яё]/gi, "");
-  //     });
-  //     form.addEventListener("submit", (e) => {
-  //       e.preventDefault();
-  //       form.appendChild(statusMessage);
-  //       statusMessage.textContent = "";
-  //       let animation = `<div class="preloader todelete">
-  //           <div class="preloader__row todelete">
-  //             <div class="preloader__item todelete"></div>
-  //             <div class="preloader__item todelete"></div>
-  //           </div>
-  //         </div>`;
-
-  //       form.insertAdjacentHTML("beforeend", animation);
-  //       const formData = new FormData(form);
-  //       let body = {};
-  //       formData.forEach((value, key) => {
-  //         body[key] = value;
-  //       });
-
-  //       const success = (request) => {
-  //         const todelete = Array.from(form.querySelectorAll(".todelete"));
-  //         todelete.forEach((item) => {
-  //           item.remove();
-  //         });
-  //         if (request.status !== 200) {
-  //           throw new Error("status network not 200");
-  //         }
-  //         statusMessage.textContent = successMessage;
-  //         const inputForm = form.querySelectorAll("input");
-  //         inputForm.forEach((elem) => {
-  //           elem.value = "";
-  //         });
-
-  //         const deleteStatusMessage = () => {
-  //           statusMessage.remove();
-  //         };
-  //         setTimeout(deleteStatusMessage, 3000);
-  //       };
-  //       const error = () => {
-  //         statusMessage.textContent = errorMessage;
-  //         console.error();
-  //       };
-
-  //       postData(body).then(success).catch(error);
-  //     });
-
-  //     const postData = (body) => {
-  //       return fetch("./server.php", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(body),
-  //       });
-  //     };
-  //   });
-  // };
-  // sendForm();
-
   const sendForm = (id, color) => {
-    const errorMessage = "Что то пошла не так...",
-      //  loadMessage = "Загрузка...",
+    const errorMessage = "Что-то пошло не так...",
+      loadMessage = "Загрузка...",
       successMessage = "Спасибо! Мы скоро с Вами свяжемся";
 
     const form = document.getElementById(`${id}`);
@@ -509,14 +426,23 @@ window.addEventListener("DOMContentLoaded", function () {
 
       formData.forEach((val, key) => {
         body[key] = val;
+        statusMessage.textContent = loadMessage;
       });
 
       postData(body)
-        .then(() => {
+        .then((response) => {
+          if (response.status === 200) {
+            userName.forEach((item) => (item.value = ""));
+            userEmail.forEach((item) => (item.value = ""));
+            userPhone.forEach((item) => (item.value = ""));
+            userMessage.forEach((item) => (item.value = ""));
+          } else if (response.status !== 200) {
+            throw new Error("status network not 200");
+          }
           statusMessage.textContent = successMessage;
           setTimeout(() => {
             statusMessage.textContent = "";
-          }, 3000);
+          }, 2000);
         })
         .catch((error) => {
           statusMessage.textContent = errorMessage;
@@ -525,30 +451,16 @@ window.addEventListener("DOMContentLoaded", function () {
     });
 
     const postData = (body) => {
-      return new Promise((resolve, reject) => {
-        const request = new XMLHttpRequest();
-        request.addEventListener("readystatechange", () => {
-          if (request.readyState !== 4) {
-            return;
-          }
-          if (request.status === 200) {
-            userName.forEach((item) => (item.value = ""));
-            userEmail.forEach((item) => (item.value = ""));
-            userPhone.forEach((item) => (item.value = ""));
-            userMessage.forEach((item) => (item.value = ""));
-            resolve();
-          } else {
-            reject(request.status);
-          }
-        });
-
-        request.open("POST", "./server.php");
-        request.setRequestHeader("Content-Type", "application/json");
-        request.send(JSON.stringify(body));
+      return fetch("./server.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
       });
     };
   };
   sendForm("form1");
   sendForm("form2");
-  sendForm("form3");
+  sendForm("form3", "white");
 });
