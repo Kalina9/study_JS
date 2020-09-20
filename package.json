@@ -1,0 +1,37 @@
+{
+  "name": "lesson18",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --open --mode=development",
+    "build": "webpack --mode=production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kalina9/study_JS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kalina9/study_JS/issues"
+  },
+  "homepage": "https://github.com/Kalina9/study_JS#readme",
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "babel-loader": "^8.1.0",
+    "path": "^0.12.7",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.11.5",
+    "element-closest": "^3.0.2",
+    "fetch-polyfill": "^0.8.2",
+    "formdata-polyfill": "^3.0.20",
+    "nodelist-foreach-polyfill": "^1.2.0"
+  },
+  "description": ""
+}
