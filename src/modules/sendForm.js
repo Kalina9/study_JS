@@ -21,7 +21,7 @@ const sendForm = (id, color) => {
 
     const mess = document.querySelector(".mess");
     mess.addEventListener("input", () => {
-        mess.value = mess.value.replace(/[^ а-яё]/gi, "");
+        mess.value = mess.value.replace(/^[?!,.а-яА-ЯёЁ0-9\s]+$/, "");
     });
 
     const statusMessage = document.createElement("div");

@@ -18,7 +18,6 @@ const togglePopUp = () => {
         } else if ((target = target.classList.contains("popup"))) {
             popup.style.display = "none";
         }
-        console.log(target);
     });
 };
 export default togglePopUp;

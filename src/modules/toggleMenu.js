@@ -14,7 +14,6 @@ const toggleMenu = () => {
         } else if (target.tagName == "A") {
             handlerMenu();
         }
-        console.log(target);
     });
 
     btnMenu.addEventListener("click", (event) => {
@@ -25,7 +24,6 @@ const toggleMenu = () => {
             handlerMenu();
         }
 
-        console.log(target);
     });
 };
 export default toggleMenu;
